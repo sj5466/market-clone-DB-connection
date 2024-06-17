@@ -8,6 +8,18 @@ import sqlite3
 con = sqlite3.connect('db.db', check_same_thread=False)
 cur = con.cursor()
 
+cur.execute(f"""
+            CREATE TABLE IF NOT EXISTS items(
+                id INTIGER PRIMARY KEY,
+                title TEXT NOT NULL,
+                image INTIGER NOT NULL,
+                price INTIGER NOT NULL,
+                description TEXT,
+                place TEXT NOT NULL,
+                insertAt INTIGER NOT NULL
+            );
+            """)
+
 app = FastAPI()
 
 @app.post("/items")
@@ -34,7 +46,7 @@ async def get_image(item_id) :
     image_byts= cur.execute(f"""
                             SELECT image FROM items WHERE id={item_id}
                             """).fetchone()[0]
-    return Response(content=bytes.fromhex(image_byts))
+    return Response(content=bytes.fromhex(image_byts),media_type='image/*')
 
 @app.get('/items')
 async def get_items() :
