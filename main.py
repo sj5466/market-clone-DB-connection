@@ -59,4 +59,9 @@ async def get_items() :
     
     return JSONResponse(jsonable_encoder(dict(row) for row in rows))
 
+@app.post('/signup')
+def signup(id:Annotated[str,Form()], password:Annotated[str,Form()]) :
+    print(id,password)
+    return '200'
+
 app.mount("/", StaticFiles(directory="frontend",html=True), name="frontend")
