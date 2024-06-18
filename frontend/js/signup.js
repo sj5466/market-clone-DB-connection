@@ -9,7 +9,6 @@ const checkPassword = () =>{
 }
 
 const handleSubmit = async (event) => {
-    debugger
     event.preventDefault();
     const formData = new FormData(form);
     const sha256Password = sha256(formData.get('password'));
@@ -19,11 +18,12 @@ const handleSubmit = async (event) => {
     console.log(formData.get('password'));
 
     if(checkPassword()){
-        const res = await fetch('/signup',{
-            method : "POST",
-            body : formData
+        const res = await fetch("/signup", {
+            method: "POST",
+            body: formData
         });
-        const data = res.json()
+
+        const data = await res.json()
 
         if(data === "200"){
             // info.innerText = "회원가입에 성공했습니다."
