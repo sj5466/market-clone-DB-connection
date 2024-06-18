@@ -20,6 +20,15 @@ cur.execute(f"""
             );
             """)
 
+cur.execute(f"""
+            CREATE TABLE IF NOT EXISTS users(
+                id TEXT PRIMARY KEY,
+                name TEXT NOT NULL,
+                email TEXT NOT NULL,
+                password TEXT NOT NULL
+            );
+            """)
+
 app = FastAPI()
 
 @app.post("/items")
@@ -60,8 +69,17 @@ async def get_items() :
     return JSONResponse(jsonable_encoder(dict(row) for row in rows))
 
 @app.post('/signup')
-def signup(id:Annotated[str,Form()], password:Annotated[str,Form()]) :
-    print(id,password)
+def signup(id : Annotated[str,Form()], 
+           password : Annotated[str,Form()],
+           name : Annotated[str,Form()],
+           email : Annotated[str,Form()]
+           ) :
+    cur.execute(f"""
+                INSERT INTO 
+                users(id, name, email, password)
+                VALUES ('{id}','{name}','{email}','{password}')
+                """)
+    con.commit()
     return '200'
 
 app.mount("/", StaticFiles(directory="frontend",html=True), name="frontend")

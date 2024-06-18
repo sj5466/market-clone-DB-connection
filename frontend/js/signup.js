@@ -9,6 +9,7 @@ const checkPassword = () =>{
 }
 
 const handleSubmit = async (event) => {
+    debugger
     event.preventDefault();
     const formData = new FormData(form);
     const sha256Password = sha256(formData.get('password'));
@@ -25,8 +26,10 @@ const handleSubmit = async (event) => {
         const data = res.json()
 
         if(data === "200"){
-            info.innerText = "회원가입에 성공했습니다."
-            info.style.color = "blue";
+            // info.innerText = "회원가입에 성공했습니다."
+            // info.style.color = "blue";
+            alert("회원 가입에 성공했습니다.")
+            window.location.pathname = '/login.html'
         }
     }else{
         info.style.color = "red";
