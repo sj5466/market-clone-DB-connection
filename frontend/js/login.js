@@ -1,7 +1,5 @@
 const form = document.querySelector('#login-form');
 
-let accessToken = null;
-
 const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(form);
@@ -15,14 +13,16 @@ const handleSubmit = async (event) => {
     });
 
     const data = await res.json();
-
-    accessToken = data.access_token;
-    console.log(accessToken,"accessToken");
+    const accessToken = data.access_token;
+    window.localStorage.setItem("token",accessToken);
+    alert("로그인 되었습니다.");
     
     const info = document.querySelector('#login-info');
     info.innerText = "로그인 되었습니다."
     
     window.location.pathname = "/";
+
+    //  과제 : JWT 를 이용해서 만료시간이 지나면 다시 로그인하는 로직 구현
 
     // const btn = document.createElement("button");
     // btn.innerText = "상품 가져오기"
