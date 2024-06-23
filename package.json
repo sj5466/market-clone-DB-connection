@@ -10,11 +10,12 @@
     "deploy": "npm run build && firebase deploy"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^3.0.2",
+    "@sveltejs/vite-plugin-svelte": "^3.1.1",
     "svelte": "^4.2.12",
     "vite": "^5.2.0"
   },
   "dependencies": {
+    "dotenv": "^16.4.5",
     "firebase": "^10.12.2",
     "glob": "^10.4.2",
     "inflight": "^1.0.6",
